@@ -8,6 +8,8 @@ require (
 	golang.org/x/crypto v0.0.0-20211117183948-ae814b36b871
 )
 
+require github.com/jinzhu/now v1.1.3 // indirect
+
 require (
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
@@ -26,4 +28,6 @@ require (
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
+	gorm.io/driver/mysql v1.2.1
+	gorm.io/gorm v1.22.4
 )
