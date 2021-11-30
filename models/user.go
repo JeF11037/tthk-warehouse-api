@@ -1,7 +1,7 @@
 package models
 
 type User struct {
-	ID               int    `json:"id,omitempty"`
+	ID               uint   `json:"id,omitempty"`
 	Username         string `json:"username,omitempty"`
 	Password         string `json:"password,omitempty"`
 	FirstName        string `json:"first_name,omitempty"`
@@ -10,5 +10,4 @@ type User struct {
 	Address          int    `json:"address_id,omitempty"`
 	Payment          int    `json:"payment_id,omitempty"`
 	RegistrationTime string `json:"created_at,omitempty"`
-	ModificationTime string `json:"modified_at,omitempty"`
 }
