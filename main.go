@@ -10,8 +10,7 @@ import (
 func main() {
 	router := gin.Default()
 	modules.Connect()
-	// test example
-	router.GET("/users", controllers.FindUsers)
-	modules.Disconnect()
+	router.POST("/login", controllers.Login)
+	router.POST("/registration", controllers.Registration)
 	router.Run()
 }
