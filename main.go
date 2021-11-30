@@ -1,13 +1,17 @@
 package main
 
 import (
-	"main/database"
+	"main/controllers"
+	"main/modules"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	router := gin.Default()
-	database.Connect()
+	modules.Connect()
+	// test example
+	router.GET("/users", controllers.FindUsers)
+	modules.Disconnect()
 	router.Run()
 }
