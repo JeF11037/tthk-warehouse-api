@@ -1,29 +1,43 @@
 package modules
 
 import (
+	"database/sql"
 	"fmt"
+	"main/models"
 
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 var (
-	DB *gorm.DB
+	DB *sql.DB
 )
 
 func Connect() {
-	var err error
-	DB, err = gorm.Open("mysql", "root:@/tthk_warehouse")
+	database, err := sql.Open("mysql", "root:@/tthk_warehouse")
 	if err != nil {
 		panic(err)
 	}
 	fmt.Println("Database connected")
+	DB = database
 }
 
-func Disconnect() {
-	err := DB.Close()
+func VerifyUser(user models.User) (bool, error) {
+	rows, err := DB.Query("SELECT * FROM user WHERE username = ? and password = ?", user.Username, user.Password)
 	if err != nil {
-		panic(err)
+		return false, err
 	}
-	fmt.Println("Database disconnected")
+	for rows.Next() {
+		rows.Close()
+		return true, err
+	}
+	return false, err
+}
+
+func CreateUser(user models.User) error {
+	_, err := DB.Exec("INSERT INTO user(username, password, first_name, last_name, address_id, payment_id) VALUES(?, ?, ?, ?, ?, ?)",
+		user.Username, user.Password, user.FirstName, user.LastName, user.Address, user.Payment)
+	if err != nil {
+		return err
+	}
+	return err
 }
