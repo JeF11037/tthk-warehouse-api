@@ -1,16 +1,18 @@
 package main
 
 import (
-	"main/controllers"
-	"main/modules"
+	"warehouse/controllers"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	router := gin.Default()
-	modules.Connect()
-	router.POST("/login", controllers.Login)
-	router.POST("/registration", controllers.Registration)
+	userRepository := controllers.NewUser()
+	router.POST("/users", userRepository.CreateUser)
+	router.PUT("/users", userRepository.CreateUser)
+	router.DELETE("/users", userRepository.CreateUser)
+	router.GET("/users", userRepository.CreateUser)
+	router.GET("/users/:id", userRepository.CreateUser)
 	router.Run()
 }
