@@ -1,7 +1,6 @@
 package modules
 
 import (
-	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"golang.org/x/crypto/bcrypt"
 )
 
