@@ -10,6 +10,7 @@ import (
 func main() {
 	router := gin.Default()
 	config := cors.DefaultConfig()
+	config.AllowAllOrigins = true
 	router.Use(cors.New(config))
 	userEndpoints.Activate(router)
 	router.Run()
