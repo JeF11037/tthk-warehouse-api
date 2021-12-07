@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"net/http"
-	"warehouse/models"
+	model "warehouse/models/user"
 	"warehouse/modules"
 
 	"github.com/gin-gonic/gin"
@@ -15,24 +15,24 @@ type UserRepository struct {
 
 func NewUser() *UserRepository {
 	db := modules.Connect()
-	db.AutoMigrate(&models.Address{}, &models.Payment{}, &models.User{})
+	db.AutoMigrate(&model.Address{}, &model.Payment{}, &model.User{})
 	return &UserRepository{Db: db}
 }
 
 func (repository *UserRepository) CreateUser(c *gin.Context) {
-	var user models.User
+	var user model.User
 	c.BindJSON(&user)
-	err := models.CreateAddress(repository.Db, &user.Address)
+	err := model.CreateAddress(repository.Db, &user.Address)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
 		return
 	}
-	err = models.CreatePayment(repository.Db, &user.Payment)
+	err = model.CreatePayment(repository.Db, &user.Payment)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
 		return
 	}
-	err = models.CreateUser(repository.Db, &user)
+	err = model.CreateUser(repository.Db, &user)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
 		return
@@ -41,19 +41,15 @@ func (repository *UserRepository) CreateUser(c *gin.Context) {
 }
 
 func (repository *UserRepository) UpdateUser(c *gin.Context) {
-	var user models.User
+	var user model.User
+	id, _ := c.Params.Get("id")
+	err := model.GetUser(repository.Db, &user, id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
+		return
+	}
 	c.BindJSON(&user)
-	err := models.UpdateAddress(repository.Db, &user.Address)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
-		return
-	}
-	err = models.UpdatePayment(repository.Db, &user.Payment)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
-		return
-	}
-	err = models.UpdateUser(repository.Db, &user)
+	err = model.UpdateUser(repository.Db, &user)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
 		return
@@ -62,19 +58,40 @@ func (repository *UserRepository) UpdateUser(c *gin.Context) {
 }
 
 func (repository *UserRepository) DeleteUser(c *gin.Context) {
-	var user models.User
-	c.BindJSON(&user)
-	err := models.UpdateAddress(repository.Db, &user.Address)
+	var user model.User
+	id, _ := c.Params.Get("id")
+	err := model.DeleteUser(repository.Db, &user, id)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
 		return
 	}
-	err = models.UpdatePayment(repository.Db, &user.Payment)
+	err = model.DeleteAddress(repository.Db, &user.Address, user.AddressID)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
 		return
 	}
-	err = models.UpdateUser(repository.Db, &user)
+	err = model.DeletePayment(repository.Db, &user.Payment, user.PaymentID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
+		return
+	}
+	c.JSON(http.StatusOK, user)
+}
+
+func (repository *UserRepository) GetUser(c *gin.Context) {
+	var user model.User
+	id, _ := c.Params.Get("id")
+	err := model.GetUser(repository.Db, &user, id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
+		return
+	}
+	c.JSON(http.StatusOK, user)
+}
+
+func (repository *UserRepository) GetUsers(c *gin.Context) {
+	var user []model.User
+	err := model.GetUsers(repository.Db, &user)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
 		return
