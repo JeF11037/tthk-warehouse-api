@@ -1,6 +1,7 @@
 package main
 
 import (
+	"time"
 	userEndpoints "warehouse/routes/user"
 
 	"github.com/gin-contrib/cors"
@@ -9,9 +10,14 @@ import (
 
 func main() {
 	router := gin.Default()
-	config := cors.DefaultConfig()
-	config.AllowAllOrigins = true
-	router.Use(cors.New(config))
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"*"},
+		AllowMethods:     []string{"*"},
+		AllowHeaders:     []string{"*"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
 	userEndpoints.Activate(router)
 	router.Run()
 }
