@@ -42,8 +42,8 @@ func GetDiscount(db *gorm.DB, Discount *Discount, id string) (err error) {
 	return nil
 }
 
-func GetDiscounts(db *gorm.DB, Discount *[]Discount) (err error) {
-	err = db.Find(Discount).Error
+func GetDiscounts(db *gorm.DB, Discounts *[]Discount) (err error) {
+	err = db.Find(Discounts).Error
 	if err != nil {
 		return err
 	}

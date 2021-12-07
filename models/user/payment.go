@@ -41,8 +41,8 @@ func GetPayment(db *gorm.DB, Payment *Payment, id string) (err error) {
 	return nil
 }
 
-func GetPayments(db *gorm.DB, Payment *[]Payment) (err error) {
-	err = db.Find(Payment).Error
+func GetPayments(db *gorm.DB, Payments *[]Payment) (err error) {
+	err = db.Find(Payments).Error
 	if err != nil {
 		return err
 	}

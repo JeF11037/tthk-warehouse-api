@@ -48,8 +48,8 @@ func GetUser(db *gorm.DB, User *User, id string) (err error) {
 	return nil
 }
 
-func GetUsers(db *gorm.DB, User *[]User) (err error) {
-	err = db.Find(User).Error
+func GetUsers(db *gorm.DB, Users *[]User) (err error) {
+	err = db.Find(Users).Error
 	if err != nil {
 		return err
 	}

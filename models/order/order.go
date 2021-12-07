@@ -1,14 +1,16 @@
 package models
 
 import (
+	models "warehouse/models/user"
+
 	"gorm.io/gorm"
 )
 
 type Order struct {
 	gorm.Model
 	UserID string
-	User   User    `gorm:"foreignKey:UserID" json:"user_id,omitempty"`
-	Total  float32 `json:"total,omitempty"`
+	User   models.User `gorm:"foreignKey:UserID" json:"user_id,omitempty"`
+	Total  float32     `json:"total,omitempty"`
 }
 
 func CreateOrder(db *gorm.DB, Order *Order) (err error) {
@@ -43,8 +45,8 @@ func GetOrder(db *gorm.DB, Order *Order, id string) (err error) {
 	return nil
 }
 
-func GetOrders(db *gorm.DB, Order *[]Order) (err error) {
-	err = db.Find(Order).Error
+func GetOrders(db *gorm.DB, Orders *[]Order) (err error) {
+	err = db.Find(Orders).Error
 	if err != nil {
 		return err
 	}

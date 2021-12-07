@@ -1,13 +1,17 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	models "warehouse/models/product"
+
+	"gorm.io/gorm"
+)
 
 type Item struct {
 	gorm.Model
-	ItemID    string
-	Item      Item `gorm:"foreignKey:ItemID" json:"Item_id,omitempty"`
+	OrderID   string
+	Order     Order `gorm:"foreignKey:OrderID" json:"order_id,omitempty"`
 	ProductID string
-	Product   Product `gorm:"foreignKey:ProductID" json:"product_id,omitempty"`
+	Product   models.Product `gorm:"foreignKey:ProductID" json:"product_id,omitempty"`
 }
 
 func CreateItem(db *gorm.DB, Item *Item) (err error) {
@@ -42,8 +46,8 @@ func GetItem(db *gorm.DB, Item *Item, id string) (err error) {
 	return nil
 }
 
-func GetItems(db *gorm.DB, Item *[]Item) (err error) {
-	err = db.Find(Item).Error
+func GetItems(db *gorm.DB, Items *[]Item) (err error) {
+	err = db.Find(Items).Error
 	if err != nil {
 		return err
 	}

@@ -44,8 +44,8 @@ func GetAddress(db *gorm.DB, Address *Address, id string) (err error) {
 	return nil
 }
 
-func GetAddresss(db *gorm.DB, Address *[]Address) (err error) {
-	err = db.Find(Address).Error
+func GetAddresses(db *gorm.DB, Addresses *[]Address) (err error) {
+	err = db.Find(Addresses).Error
 	if err != nil {
 		return err
 	}

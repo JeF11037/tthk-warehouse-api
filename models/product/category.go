@@ -40,8 +40,8 @@ func GetCategory(db *gorm.DB, Category *Category, id string) (err error) {
 	return nil
 }
 
-func GetCategories(db *gorm.DB, Category *[]Category) (err error) {
-	err = db.Find(Category).Error
+func GetCategories(db *gorm.DB, Categories *[]Category) (err error) {
+	err = db.Find(Categories).Error
 	if err != nil {
 		return err
 	}

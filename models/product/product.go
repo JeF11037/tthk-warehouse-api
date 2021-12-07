@@ -45,8 +45,8 @@ func GetProduct(db *gorm.DB, Product *Product, id string) (err error) {
 	return nil
 }
 
-func GetProducts(db *gorm.DB, Product *[]Product) (err error) {
-	err = db.Find(Product).Error
+func GetProducts(db *gorm.DB, Products *[]Product) (err error) {
+	err = db.Find(Products).Error
 	if err != nil {
 		return err
 	}

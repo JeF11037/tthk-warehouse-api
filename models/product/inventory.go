@@ -42,8 +42,8 @@ func GetInventory(db *gorm.DB, Inventory *Inventory, id string) (err error) {
 	return nil
 }
 
-func GetInventorys(db *gorm.DB, Inventory *[]Inventory) (err error) {
-	err = db.Find(Inventory).Error
+func GetInventories(db *gorm.DB, Inventories *[]Inventory) (err error) {
+	err = db.Find(Inventories).Error
 	if err != nil {
 		return err
 	}

@@ -90,13 +90,13 @@ func (repository *UserRepository) GetUser(c *gin.Context) {
 }
 
 func (repository *UserRepository) GetUsers(c *gin.Context) {
-	var user []model.User
-	err := model.GetUsers(repository.Db, &user)
+	var users []model.User
+	err := model.GetUsers(repository.Db, &users)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
 		return
 	}
-	c.JSON(http.StatusOK, user)
+	c.JSON(http.StatusOK, users)
 }
 
 func (repository *UserRepository) VerifyUser(c *gin.Context) {
