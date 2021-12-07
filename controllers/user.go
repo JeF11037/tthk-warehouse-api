@@ -98,3 +98,14 @@ func (repository *UserRepository) GetUsers(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, user)
 }
+
+func (repository *UserRepository) VerifyUser(c *gin.Context) {
+	var user model.User
+	c.BindJSON(&user)
+	err := model.VerifyUser(repository.Db, &user)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
+		return
+	}
+	c.JSON(http.StatusOK, user)
+}

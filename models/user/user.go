@@ -55,3 +55,11 @@ func GetUsers(db *gorm.DB, User *[]User) (err error) {
 	}
 	return nil
 }
+
+func VerifyUser(db *gorm.DB, User *User) (err error) {
+	err = db.Where("email = ? AND password = ?", User.Email, User.Password).First(User).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}

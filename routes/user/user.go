@@ -13,4 +13,5 @@ func Activate(router *gin.Engine) {
 	router.DELETE("/users/:id", userRepository.DeleteUser)
 	router.GET("/users", userRepository.GetUsers)
 	router.GET("/users/:id", userRepository.GetUser)
+	router.POST("/users/verify", userRepository.VerifyUser)
 }
