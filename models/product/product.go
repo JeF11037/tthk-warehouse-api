@@ -4,13 +4,11 @@ import "gorm.io/gorm"
 
 type Product struct {
 	gorm.Model
-	Name        string `json:"name,omitempty"`
-	Description string `json:"description,omitempty"`
-	SKU         string `json:"sku,omitempty"`
-	CategoryID  string
-	Category    Category `gorm:"foreignKey:CategoryID" json:"category_id,omitempty"`
-	InventoryID string
-	Inventory   Inventory `gorm:"foreignKey:InventoryID" json:"inventory_id,omitempty"`
+	Name        string  `json:"name,omitempty"`
+	Description string  `json:"description,omitempty"`
+	SKU         string  `json:"sku,omitempty"`
+	Price       float32 `json:"price,omitempty"`
+	Quantity    int32   `json:"quantity,omitempty"`
 }
 
 func CreateProduct(db *gorm.DB, Product *Product) (err error) {

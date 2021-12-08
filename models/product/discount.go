@@ -7,7 +7,6 @@ type Discount struct {
 	Name        string  `json:"name,omitempty"`
 	Description string  `json:"description,omitempty"`
 	Percent     float32 `json:"percent,omitempty"`
-	Active      string  `json:"active,omitempty"`
 }
 
 func CreateDiscount(db *gorm.DB, Discount *Discount) (err error) {

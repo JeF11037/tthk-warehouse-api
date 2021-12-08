@@ -2,7 +2,7 @@ package main
 
 import (
 	"time"
-	userEndpoints "warehouse/endpoints/user"
+	"warehouse/endpoints"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -18,6 +18,8 @@ func main() {
 		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,
 	}))
-	router = userEndpoints.Activate(router)
-	router.Run()
+	endpoints.ActivateUser(router)
+	endpoints.ActivateProduct(router)
+	endpoints.ActivateOrder(router)
+	router.Run(":3000")
 }

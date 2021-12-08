@@ -1,12 +1,12 @@
 package endpoints
 
 import (
-	"warehouse/controllers"
+	controllers "warehouse/controllers"
 
 	"github.com/gin-gonic/gin"
 )
 
-func Activate(router *gin.Engine) *gin.Engine {
+func ActivateUser(router *gin.Engine) {
 	userRepository := controllers.NewUser()
 	router.POST("/users", userRepository.CreateUser)
 	router.PUT("/users/:id", userRepository.UpdateUser)
@@ -14,5 +14,4 @@ func Activate(router *gin.Engine) *gin.Engine {
 	router.GET("/users", userRepository.GetUsers)
 	router.GET("/users/:id", userRepository.GetUser)
 	router.POST("/users/verify", userRepository.VerifyUser)
-	return router
 }
