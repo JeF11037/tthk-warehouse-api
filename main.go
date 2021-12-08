@@ -18,6 +18,6 @@ func main() {
 		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,
 	}))
-	userEndpoints.Activate(router)
+	router = userEndpoints.Activate(router)
 	router.Run()
 }

@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Activate(router *gin.Engine) {
+func Activate(router *gin.Engine) *gin.Engine {
 	userRepository := controllers.NewUser()
 	router.POST("/users", userRepository.CreateUser)
 	router.PUT("/users/:id", userRepository.UpdateUser)
@@ -14,4 +14,5 @@ func Activate(router *gin.Engine) {
 	router.GET("/users", userRepository.GetUsers)
 	router.GET("/users/:id", userRepository.GetUser)
 	router.POST("/users/verify", userRepository.VerifyUser)
+	return router
 }
