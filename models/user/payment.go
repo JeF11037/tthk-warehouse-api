@@ -5,7 +5,7 @@ import "gorm.io/gorm"
 type Payment struct {
 	gorm.Model
 	PaymentType string `json:"payment_type,omitempty"`
-	CardNumber  int32  `json:"card_number,omitempty"`
+	CardNumber  string `json:"card_number,omitempty"`
 	Expiry      string `json:"expiry,omitempty"`
 }
 
