@@ -2,7 +2,7 @@ package main
 
 import (
 	"time"
-	userEndpoints "warehouse/routes/user"
+	userEndpoints "warehouse/endpoints/user"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
